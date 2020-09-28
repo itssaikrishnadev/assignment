@@ -1,0 +1,19 @@
+- hosts: all
+  gather_facts: False
+
+  tasks:
+    - name: Ansible copy file force
+    copy:
+      src: ~/getHost.py
+      dest: /tmp 
+      force: no
+
+    - name: Ansible copy file Dockerfile
+      copy:
+      src: ~/Dockerfile
+      dest: /tmp
+      force: no
+
+    - name: Setting up docker
+       shell:
+         cmd: service docker start && docker build -t gethost /tmp/. && docker run -t -i -d -p 5000:5000 gethost 
